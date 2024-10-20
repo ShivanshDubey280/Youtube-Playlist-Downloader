@@ -105,38 +105,73 @@ def update_status(status_message):
     status_lbl.config(text=status_message)
     root.update_idletasks()
 
+def show_help():
+    help_text = (
+        "Dubey's Playlist Downloader\n"
+        "---------------------------\n"
+        "Instructions:\n"
+        "1. Enter the URL of the YouTube playlist in the URL field.\n"
+        "2. Select the desired resolution from the dropdown menu.\n"
+        "3. Click 'Download' to start downloading the playlist.\n"
+        "4. Choose a directory to save the downloaded videos.\n"
+        "5. Monitor the progress in the progress bar and status label.\n"
+        "6. You will receive a notification when the download is complete."
+    )
+    messagebox.showinfo("Help", help_text)
+
 # Setting up the GUI
 root = tk.Tk()
-root.title("YouTube Playlist Downloader")
-root.geometry("500x300")
+root.title("Dubey's Video Downloader")
+root.geometry("430x320")
+root.configure(bg="#f0f0f0")
+
+root.iconbitmap(r"S:\Playground\Project\logo.ico")
+
+
+
+# Title Label
+title_lbl = tk.Label(root, text="YouTube Playlist Downloader", font=("Helvetica", 16, "bold"), bg="#f0f0f0")
+title_lbl.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
 
 # URL Label and Entry
-tk.Label(root, text="Playlist URL:").grid(row=0, column=0, padx=10, pady=10, sticky="e")
+tk.Label(root, text="Playlist URL:", bg="#f0f0f0").grid(row=1, column=0, padx=10, pady=10, sticky="e")
 url_entry = tk.Entry(root, width=50)
-url_entry.grid(row=0, column=1, padx=10, pady=10)
+url_entry.grid(row=1, column=1, padx=10, pady=10)
 
 # Resolution Selection Label
-tk.Label(root, text="Resolution:").grid(row=1, column=0, padx=10, pady=10, sticky="e")
+tk.Label(root, text="Resolution:", bg="#f0f0f0").grid(row=2, column=0, padx=10, pady=10, sticky="e")
 resolution_var = tk.StringVar(value="720p")
 resolutions = ["240p", "360p", "480p", "720p", "1080p", "1440p", "2160p"]
 resolution_menu = tk.OptionMenu(root, resolution_var, *resolutions)
-resolution_menu.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+resolution_menu.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
 # Progress Bar
 progress_bar = ttk.Progressbar(root, orient="horizontal", length=400, mode="determinate")
-progress_bar.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
+progress_bar.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
 # Status Label
-status_lbl = tk.Label(root, text="Waiting to start download...", anchor="w")
-status_lbl.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
+status_lbl = tk.Label(root, text="Waiting to start download...", anchor="w", bg="#f0f0f0")
+status_lbl.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
 
 # Progress percentage Label
-progress_lbl = tk.Label(root, text="", anchor="w")
-progress_lbl.grid(row=4, column=0, columnspan=2, padx=10, pady=5)
+progress_lbl = tk.Label(root, text="", anchor="w", bg="#f0f0f0")
+progress_lbl.grid(row=5, column=0, columnspan=2, padx=10, pady=5)
+
+# Button Frame
+button_frame = tk.Frame(root, bg="#f0f0f0")
+button_frame.grid(row=6, column=0, columnspan=2, pady=10)
+
+# Help Button
+help_btn = tk.Button(button_frame, text="Help", command=show_help)
+help_btn.pack(side=tk.LEFT, padx=10)
 
 # Download Button
-download_btn = tk.Button(root, text="Download", command=download_playlist_gui)
-download_btn.grid(row=5, column=0, columnspan=2, pady=20)
+download_btn = tk.Button(button_frame, text="Download", command=download_playlist_gui)
+download_btn.pack(side=tk.LEFT, padx=10)
+
+# Footer Label
+footer_lbl = tk.Label(root, text="Made by Shivansh Dubey ©", bg="#f0f0f0")
+footer_lbl.grid(row=7, column=0, columnspan=2, pady=3)
 
 # Run the application
 root.mainloop()
